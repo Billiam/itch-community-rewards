@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    itch_rewards (0.1.1)
+    itch_rewards (0.1.2)
       dry-cli (~> 0.7.0)
       itch_client (~> 0.2.0)
       pastel (~> 0.8.0)

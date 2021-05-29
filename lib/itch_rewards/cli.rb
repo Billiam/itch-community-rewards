@@ -114,7 +114,7 @@ module ItchRewards
             result = cli.yes?("Config file #{config_path} does not exist, would you like to create it?")
 
             if result
-              write_config(config_path)
+              Rewards.write_config(config_path, options)
               cli.say "Config file written to #{config_path}"
             end
           else
@@ -148,9 +148,9 @@ module ItchRewards
           cli.say render_table(table)
         end
 
-        def self.write_config(path)
+        def self.write_config(path, options)
           require 'erb'
-          client = authenticated_client!
+          client = authenticated_client!(options)
           
           games = client.game_map.map.values
           template = File.read(File.join(__dir__, 'templates/reward_config.yml.erb'))
