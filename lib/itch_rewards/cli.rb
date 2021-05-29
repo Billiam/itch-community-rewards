@@ -77,6 +77,12 @@ module ItchRewards
 
         table.render(:unicode, multiline: true, padding: [0,1], resize: false, border: { style: :green })
       end
+
+      def show_rewards(game)
+        cli.say "Rewards for #{game.name} (id: #{game.id})"
+        table = objects_to_table(game.rewards.list)
+        cli.say render_table(table)
+      end
     end
 
     module Commands
@@ -150,21 +156,6 @@ module ItchRewards
       end
 
       module Rewards
-        extend self
-        include Helper
-        def self.show_rewards(game)
-          cli.say "Rewards for #{game.name} (id: #{game.id})"
-          table = objects_to_table(game.rewards.list)
-          cli.say render_table(table)
-        end
-
-        def self.load_config(path)
-          YAML.load_file(path)
-        rescue YAML::ParseError => e
-          cli.error("Config file (#{path}) is not valid yaml")
-          exit 1
-        end
-
         class List < Dry::CLI::Command
           include AuthOptions
           include Helper
@@ -187,7 +178,7 @@ module ItchRewards
             client = authenticated_client!(options)
             game = options[:id] ? client.game(options[:id]) : client.game(name: options[:name])
 
-            Rewards.show_rewards(game)
+            show_rewards(game)
           end
         end
 
@@ -238,7 +229,7 @@ module ItchRewards
 
             rewards.save reward_list
             
-            Rewards.show_rewards(game)
+            show_rewards(game)
           end
         end
 
@@ -246,11 +237,18 @@ module ItchRewards
           include Helper
           include AuthOptions
 
+          def load_config(path)
+            YAML.load_file(path)
+          rescue YAML::ParseError => e
+            cli.error("Config file (#{path}) is not valid yaml")
+            exit 1
+          end
+
           desc "Update reward quantity and description from configuration file"
 
           option :config, required: true, desc: "Path to config file", default: "itch-reward-config.yml"
           option :save, type: :boolean, desc: "Saves changes when enabled. Otherwise, dry-run and show result", default: false
-    
+
           def call(**options)
             client = authenticated_client!(options)
 
@@ -259,7 +257,7 @@ module ItchRewards
               exit 1
             end
 
-            config = Rewards.load_config(options[:config])
+            config = load_config(options[:config])
             unless config["games"].is_a? Hash
               cli.error("No games configured for rewards updates in config file")
               exit 1
