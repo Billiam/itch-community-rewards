@@ -57,7 +57,7 @@ While logging in via cookies is easier (and required for non-interactive login, 
 
 ### List games
 
-Return a list of game names and IDs. Useful for other commands that use game ID, or when creating a [reward configuration file](#configuration_file).
+Return a list of game names and IDs. Useful for other commands that use game ID, or when creating a [reward configuration file](#reward-configuration).
 
 
 ```shell
@@ -136,7 +136,30 @@ Options:
   --[no-]save                       # Saves changes when enabled. Otherwise, dry-run and show result, default: false
 ```
 
-#### Example reward scenarios
+
+#### Reward configuration
+
+Automatic reward updates require a reward configuration file. You can create an annotated file, prepopulated with all of your itch games by using the [setup command](#authenticating).
+
+A reward configuration looks like this
+
+```yml
+---
+games:
+  MyGame:
+    id: 123456
+    reward_id: 789012
+    reward_by_purchase: 0
+    reward_by_tip: 0.0
+    reward_offset: 0
+    minimum_available: 0
+    reward_description_template:
+
+  MyOtherGame:
+    ...
+```
+
+#### Some example reward scenarios
 
 > I want every purchase to add one community copy
 
