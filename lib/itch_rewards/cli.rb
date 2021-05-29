@@ -97,6 +97,16 @@ module ItchRewards
         include AuthOptions
         @options = @options.reject {|opt| [:cookies, :interactive].include? opt.name }
 
+        def write_config(path, options)
+          require 'erb'
+          client = authenticated_client!(options)
+          
+          games = client.game_map.map.values
+          template = File.read(File.join(__dir__, 'templates/reward_config.yml.erb'))
+
+          File.write(path, ERB.new(template, trim_mode: '-').result(binding))
+        end
+
         desc "Save cookies for itch.io and create reward config example file"
         def call(**options)
           options[:cookies] ||= cli.ask("Where would you like to store your login cookies?  ", default: ".itch-cookies.yml")
@@ -114,7 +124,7 @@ module ItchRewards
             result = cli.yes?("Config file #{config_path} does not exist, would you like to create it?")
 
             if result
-              Rewards.write_config(config_path, options)
+              write_config(config_path, options)
               cli.say "Config file written to #{config_path}"
             end
           else
@@ -146,16 +156,6 @@ module ItchRewards
           cli.say "Rewards for #{game.name} (id: #{game.id})"
           table = objects_to_table(game.rewards.list)
           cli.say render_table(table)
-        end
-
-        def self.write_config(path, options)
-          require 'erb'
-          client = authenticated_client!(options)
-          
-          games = client.game_map.map.values
-          template = File.read(File.join(__dir__, 'templates/reward_config.yml.erb'))
-
-          File.write(options[:config], ERB.new(template, trim_mode: '-').result(binding))
         end
 
         def self.load_config(path)
