@@ -100,6 +100,8 @@ module ItchRewards
         desc "Save cookies for itch.io and create reward config example file"
         def call(**options)
           options[:cookies] ||= cli.ask("Where would you like to store your login cookies?  ", default: ".itch-cookies.yml")
+          options[:interactive] = true
+
           if authenticated_client(options)
             cli.say "Saved cookies to #{options[:cookie_path]}"
           else
