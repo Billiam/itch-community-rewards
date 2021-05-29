@@ -1,0 +1,46 @@
+---
+games:
+<% if games.any? -%>
+<% game = games.first -%>
+  # Game name, must match exactly
+  <%= game[:name] %>:
+
+    # Game ID
+    id: <%= game[:id] %>
+
+    # ID of reward to update
+    reward_id:
+
+    # Increase reward quantity by this value for each paid purchase
+    # ex: with reward_by_purchase set to 2, every purchase will add 2 reward copies
+    reward_by_purchase: 0
+
+    # Increase reward quantity by tip value, as a percentage of game price
+    # ex: with rewards_by_tip set to 1, a $10 tip on a $5 game (total price: $15) would add 2 reward copies
+    # ex: with rewards_by_tip set to 0.5, a $10 tip on a $5 game would add 1 reward copy
+    reward_by_tip: 0.0
+
+    # Add a flat value to reward quantity available (ex: for adding initial reward copies )
+    reward_offset: 0
+
+    # Minimum reward quantity available, regardless of other settings
+    # Ensures that there are at least this many rewards available
+    minimum_available: 0
+
+    # Can be used to update the reward description with reward information, like: 
+    #    total number of reward copies ({quantity}),
+    #    or percentage until next copy ({remaining_percent} for a number between 0.0 and 100.0)
+    #    or ({remaining_percent_integer} for a whole number between 0 and 100, rounded down)
+    # Ex: Please enjoy this community copy! <b>{ quantity }</b> copies added so far, { remaining_percent }% of the way to next reward! 
+    reward_description_template:
+  <% games[1..].each do |game| %>
+  <%= game[:name] %>:
+    id: <%= game[:id] %>
+    reward_id:
+    reward_by_purchase: 0
+    reward_by_tip: 0.0
+    reward_offset: 0
+    minimum_available: 0
+    reward_description_template:
+  <% end %>
+<% end %>
