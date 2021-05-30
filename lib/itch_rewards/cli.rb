@@ -264,7 +264,7 @@ module ItchRewards
             end
             
             unless options[:save]
-              cli.warn "Dry run, results will not not saved"
+              cli.warn "Dry run, results will not be saved"
             end
 
             purchases_by_game = client.purchases.history.each.group_by {|row| row['object_name'] }.to_h
