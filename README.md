@@ -12,12 +12,12 @@ Commandline tool to update game rewards on Itch.io, and automatically update rew
 Usage: itch-rewards COMMAND [options]
 
 Commands:
-  itch-rewards list                                        # List all rewards for a game
-  itch-rewards list-games                                  # List all games
-  itch-rewards recalculate                                 # Update reward quantity and description from configuration file
-  itch-rewards setup                                       # Save cookies for itch.io and create reward config example file
-  itch-rewards update GAME_ID REWARD_ID                    # Update a reward
-  itch-rewards version                                     # Print version
+  itch-rewards list                        # List all rewards for a game
+  itch-rewards list-games                  # List all games
+  itch-rewards recalculate                 # Update reward quantity and description from configuration file
+  itch-rewards setup                       # Save cookies for itch.io and create reward config example file
+  itch-rewards update GAME_ID REWARD_ID    # Update a reward
+  itch-rewards version                     # Print version
 ```
 
 ### Authenticating
@@ -47,12 +47,12 @@ You'll also be prompted to create an (optional) configuration file that can be u
 While logging in via cookies is easier (and required for non-interactive login, ex: for cron tasks), all commands also accept the following options.
 
 ```shell
---username=VALUE, -u VALUE        # Itch username
---password=VALUE, -p VALUE        # Itch password
---cookie-path=VALUE               # Path to cookies file for future logins, default: ".itch-cookies.yml"
---[no-]cookies                    # Enable cookie storage, default: true
---[no-]interactive                # Enable interactive prompts, default: true
---help, -h                        # Print help
+--username=VALUE, -u VALUE   # Itch username
+--password=VALUE, -p VALUE   # Itch password
+--cookie-path=VALUE          # Path to cookies file for future logins, default: ".itch-cookies.yml"
+--[no-]cookies               # Enable cookie storage, default: true
+--[no-]interactive           # Enable interactive prompts, default: true
+--help, -h                   # Print help
 ```
 
 ### List games
@@ -105,15 +105,15 @@ Description:
   Update a reward
 
 Arguments:
-  GAME_ID                           # REQUIRED Game with the reward to edit
-  REWARD_ID                         # REQUIRED Reward ID to update
+  GAME_ID                   # REQUIRED Game with the reward to edit
+  REWARD_ID                 # REQUIRED Reward ID to update
 
 Options:
-  --quantity=VALUE                  # Reward quantity (total, including redeemed)
-  --title=VALUE                     # Reward title
-  --[no-]archived                   # Reward archived status
-  --description=VALUE               # Reward description
-  --price=VALUE                     # Reward price without currency (ex: 15.99)
+  --quantity=VALUE          # Reward quantity (total, including redeemed)
+  --title=VALUE             # Reward title
+  --[no-]archived           # Reward archived status
+  --description=VALUE       # Reward description
+  --price=VALUE             # Reward price without currency (ex: 15.99)
 
 Examples:
   itch-rewards update 123456 78910 --quantity 5            # Set the reward count to 5 for reward ID 78910 in game ID 123456
@@ -132,8 +132,8 @@ Description:
   Update reward quantity and description from configuration file
 
 Options:
-  --config=VALUE                    # Path to config file, default: "itch-reward-config.yml"
-  --[no-]save                       # Saves changes when enabled. Otherwise, dry-run and show result, default: false
+  --config=VALUE      # Path to config file, default: "itch-reward-config.yml"
+  --[no-]save         # Saves changes when enabled. Otherwise, dry-run and show result, default: false
 ```
 
 
