@@ -193,7 +193,7 @@ MyGame:
   id: 123456
   reward_id: 789012
   reward_by_purchase: 0
-  reward_by_tip: 0.0
+  reward_by_tip: 1.0
   reward_offset: 0
   minimum_available: 0
 ```
