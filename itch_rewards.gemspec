@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.executables   = ['itch-rewards']
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "itch_client", [">= 0.4.2", "~> 0.4.2"]
+  spec.add_dependency "itch_client", [">= 0.4.3", "~> 0.4.3"]
   spec.add_dependency "dry-cli", "~> 0.7.0"
   spec.add_dependency "tty-prompt", "~> 0.23.1"
   spec.add_dependency "tty-table", "~> 0.12.0"
