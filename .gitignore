@@ -8,6 +8,7 @@
 /tmp/
 
 # rspec failure tracking
+*.gem
 .rspec_status
 .itch-cookies.yml
 itch-reward-config.yml
